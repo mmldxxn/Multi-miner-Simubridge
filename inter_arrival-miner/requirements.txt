@@ -1,0 +1,5 @@
+flask
+uvicorn
+numpy
+scipy
+flask_cors

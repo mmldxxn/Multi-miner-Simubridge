@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
   simulation-bridge:
@@ -13,6 +13,7 @@ services:
       - "3000:3000"
     networks:
       - app-network
+
   simod:
     build:
       context: ./simod_http_augemented
@@ -23,6 +24,7 @@ services:
       - "8880:80"
     networks:
       - app-network
+
   scylla:
     build:
       context: ./Scylla-Container
@@ -34,6 +36,54 @@ services:
     networks:
       - app-network
 
+  inductive-miner:
+    # platform: linux/amd64  # Add this line
+    build:
+      context: ./inductive-miner
+      dockerfile: Dockerfile
+    image: inductive-miner:latest
+    container_name: inductive-miner
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  resource-miner:
+    # platform: linux/amd64  # Add this line
+    build:
+      context: ./resource-miner
+      dockerfile: Dockerfile
+    image: resource-miner:latest
+    container_name: resource-miner
+    ports:
+      - "8001:8001"
+    networks:
+      - app-network
+
+  activity-duration-miner:
+    # platform: linux/amd64  # Add this line
+    build:
+      context: ./activity-duration-miner
+      dockerfile: Dockerfile
+    image: activity-duration-miner:latest
+    container_name: activity-duration-miner
+    ports:
+      - "8002:8002"
+    networks:
+      - app-network
+
+  inter_arrival-miner:
+    # platform: linux/amd64  # Add this line
+    build:
+      context: ./inter_arrival-miner
+      dockerfile: Dockerfile
+    image: inter_arrival-miner:latest
+    container_name: inter_arrival-miner
+    ports:
+      - "8003:8003"
+    networks:
+      - app-network
+
 networks:
-    app-network:
-        driver: bridge
+  app-network:
+    driver: bridge
